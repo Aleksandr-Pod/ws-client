@@ -1,0 +1,44 @@
+h2 {text-align: center; padding: 0; margin: 0;}
+.all {
+    display: flex;
+    width: 720px;
+
+}
+.gameField {
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 350px;
+    height: 340px;
+    
+    padding: 20px;
+    background-color: rgb(153, 228, 153);
+    border: 1px solid black;
+}
+.usersInGame {
+    width: 180px;
+    height: 340px;
+    padding: 20px;
+    background-color: rgb(83, 30, 23);
+    color:rgb(243, 200, 81);
+    border: 1px solid black;
+}
+.name {
+    padding-left: 10px;
+    font-size: larger;
+    color:rgb(253, 191, 183)
+}
+.messageField {
+    width: 594px;
+    padding: 10px;
+    font-size: 20px;
+    background-color: rgb(22, 8, 8);
+    color: white;
+}
+.position {
+    margin: 1px;
+    width: 28px;
+    height: 28px;
+    border: 1px solid black;
+
+}

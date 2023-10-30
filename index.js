@@ -12,6 +12,7 @@ const numberOfUsers = document.querySelector(".numberOfUsers");
 const messageField = document.querySelector(".messageField");
 const errorDOM = document.querySelector(".error");
 const exitBTN = document.querySelector(".exit");
+const userNameForm = document.getElementById("userNameForm");
 
 // ---------- WS connection 
 // Browser clients must use the native WebSocket object !!!
@@ -21,7 +22,8 @@ const ws = new WebSocket("ws://localhost:1919");
 
 // Обработчик сообщений
 ws.onmessage = ({data: message}) => {
-  writeToLog(message);
+  const messageDate = new Date;
+  writeToLog({date: messageDate.toISOString(), message});
   
   if (message[0] !== "{" & message[0] !== "[") {
     if (message === "users limit") {
@@ -96,13 +98,13 @@ ws.onmessage = ({data: message}) => {
 //        ***     ***     ***
 
 (function login () {
-  const userNameForm = document.getElementById("userNameForm");
   userNameForm.addEventListener("submit", (e) => {
     e.preventDefault();
     userName = e.target.elements.name.value;
     document.querySelector(".name").textContent = userName;
-    ws.send(JSON.stringify({newUser: userName}));
-    userNameForm.remove(); // удаляем форму
+    ws.send(JSON.stringify({ newUser: userName }));
+    userNameForm.classList.add("hidden");
+    // userNameForm.remove(); // удаляем форму
     start();
   });
 })();
@@ -170,9 +172,9 @@ function makeUsersList (data){
 function handleExit () {
   console.log("exit");
   ws.send(JSON.stringify({exit: {userName, color: myColor}}));
-  ws.close();
   messageField.innerHTML = "Игра окончена";
   document.querySelector(".gameField").innerHTML = "";
+  userNameForm.classList.remove("hidden");
 }
 function writeToLog (mess) {
   if (mess[0] !== "{" & mess[0] !== "[") {
